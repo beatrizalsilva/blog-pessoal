@@ -12,12 +12,15 @@ export class PostagemService {
     ) {}
 
     async findAll(): Promise<Postagem[]> {
-        return await this.postagemRepository.find();
+        return await this.postagemRepository.find({
+            relations: {tema: true}
+        });
     }
 
     async findById(id: number): Promise<Postagem> {
         let postagem = await this.postagemRepository.findOne({
-            where: { id }
+            where: {id},
+            relations: {tema: true}
         });
         if(!postagem) {
             throw new HttpException('Postagem não encontrada!', HttpStatus.NOT_FOUND); //erro 404 = tratamento de erro
@@ -27,7 +30,9 @@ export class PostagemService {
 
     async findByTitulo(titulo: string): Promise<Postagem[]> {
         return await this.postagemRepository.find({
-            where: { titulo: ILike(`%${titulo}%`)} //método de busca de texto do mysql, ILike ignora se for maiúscula ou minúscula
+            //método de busca de texto do mysql, ILike ignora se for maiúscula ou minúscula
+            where: { titulo: ILike(`%${titulo}%`)},
+            relations: {tema: true}
         })
     }
 
