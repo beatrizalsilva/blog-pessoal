@@ -4,6 +4,9 @@ import { Postagem } from './postagem/entities/postagem.entity';
 import { PostagemModule } from './postagem/postagem.module';
 import { Tema } from './tema/entities/tema.entity';
 import { TemaModule } from './tema/tema.module';
+import { AuthModule } from './auth/auth.module';
+import { Usuario } from './usuario/entities/usuario.entity';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -13,11 +16,13 @@ import { TemaModule } from './tema/tema.module';
     username: 'root',
     password: 'root',
     database: 'db_blogpessoal',
-    entities: [Postagem, Tema], //tabelas criada no db
+    entities: [Postagem, Tema, Usuario], //tabelas criada no db
     synchronize: true,
     }),
     PostagemModule,
-    TemaModule
+    TemaModule,
+    AuthModule,
+    UsuarioModule
   ],
   controllers: [],
   providers: [],

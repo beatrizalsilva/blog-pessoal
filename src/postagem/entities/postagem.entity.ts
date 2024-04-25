@@ -1,5 +1,6 @@
 import { IsNotEmpty } from "class-validator";
 import { Tema } from "src/tema/entities/tema.entity";
+import { Usuario } from "src/usuario/entities/usuario.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity({ name: 'tb_postagens' })
@@ -18,9 +19,15 @@ export class Postagem {
     @UpdateDateColumn()
     data: Date;
 
-    //relação com a tabela tema
+    //relação com a tabela tema (n - 1)
     @ManyToOne(() => Tema, (tema) => tema.postagem, {
         onDelete: "CASCADE" //se apagar postagem na tb tema, será apago na tb postagens também
     })
     tema: Tema
+
+    // relação com a tabela usuário (n - 1)
+    @ManyToOne(() => Usuario, (usuario) => usuario.postagem, {
+        onDelete: "CASCADE"
+    })
+    usuario: Usuario
 }
