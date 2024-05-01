@@ -13,13 +13,13 @@ describe('Testes dos Módulos Usuário e Auth (e2e)', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         TypeOrmModule.forRoot({
-          type: "sqlite",
-          database: "db_blogpessoal_teste.db",
+          type: 'sqlite',
+          database: ':memory:',
           entities: [__dirname + "./../src/**/entities/*.entity.ts"],
           synchronize: true,
-          dropSchema: true
-        })
-      ],
+          dropSchema: true,
+        }),
+        AppModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -38,8 +38,8 @@ describe('Testes dos Módulos Usuário e Auth (e2e)', () => {
       usuario: 'root@root.com',
       senha: 'rootroot',
       foto: ''
-    });
-    expect(201)
+    })
+    .expect(201)
     usuarioId = resposta.body.id;
   });
 
@@ -49,8 +49,8 @@ describe('Testes dos Módulos Usuário e Auth (e2e)', () => {
     .send({
       usuario: 'root@root.com',
       senha: 'rootroot'
-    });
-    expect(200)
+    })
+    .expect(200)
     token = resposta.body.token;
   });
 
@@ -62,8 +62,8 @@ describe('Testes dos Módulos Usuário e Auth (e2e)', () => {
       usuario: 'root@root.com',
       senha: 'rootroot',
       foto: ''
-    });
-    expect(400)
+    })
+    .expect(400)
   });
 
   it('04 - Deve listar todos os usuários', async () => {
@@ -93,7 +93,7 @@ describe('Testes dos Módulos Usuário e Auth (e2e)', () => {
 
   it('06 - Deve listar usuários por id', async () => {
     return request(app.getHttpServer())
-      .get('/usuarios/id')
+      .get(`/usuarios/${usuarioId}`)
       .set('Authorization', `${token}`)
       .send({})
       .expect(200)
