@@ -15,11 +15,12 @@ describe('Testes dos Módulos Usuário e Auth (e2e)', () => {
         TypeOrmModule.forRoot({
           type: 'sqlite',
           database: ':memory:',
-          entities: [__dirname + "./../src/**/entities/*.entity.ts"],
+          entities: [__dirname + './../src/**/entities/*.entity.ts'],
           synchronize: true,
           dropSchema: true,
         }),
-        AppModule],
+        AppModule,
+      ],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -32,38 +33,38 @@ describe('Testes dos Módulos Usuário e Auth (e2e)', () => {
 
   it('01 - Deve cadastrar usuário', async () => {
     const resposta = await request(app.getHttpServer())
-    .post('/usuarios/cadastrar')
-    .send({
-      nome: 'Root',
-      usuario: 'root@root.com',
-      senha: 'rootroot',
-      foto: ''
-    })
-    .expect(201)
+      .post('/usuarios/cadastrar')
+      .send({
+        nome: 'Root',
+        usuario: 'root@root.com',
+        senha: 'rootroot',
+        foto: '',
+      })
+      .expect(201);
     usuarioId = resposta.body.id;
   });
 
   it('02 - Deve autenticar usuário (login)', async () => {
     const resposta = await request(app.getHttpServer())
-    .post('/usuarios/logar')
-    .send({
-      usuario: 'root@root.com',
-      senha: 'rootroot'
-    })
-    .expect(200)
+      .post('/usuarios/logar')
+      .send({
+        usuario: 'root@root.com',
+        senha: 'rootroot',
+      })
+      .expect(200);
     token = resposta.body.token;
   });
 
   it('03 - Não deve duplicar o usuário', async () => {
     return request(app.getHttpServer())
-    .post('/usuarios/cadastrar')
-    .send({
-      nome: 'Root',
-      usuario: 'root@root.com',
-      senha: 'rootroot',
-      foto: ''
-    })
-    .expect(400)
+      .post('/usuarios/cadastrar')
+      .send({
+        nome: 'Root',
+        usuario: 'root@root.com',
+        senha: 'rootroot',
+        foto: '',
+      })
+      .expect(400);
   });
 
   it('04 - Deve listar todos os usuários', async () => {
@@ -71,7 +72,7 @@ describe('Testes dos Módulos Usuário e Auth (e2e)', () => {
       .get('/usuarios/all')
       .set('Authorization', `${token}`)
       .send({})
-      .expect(200)
+      .expect(200);
   });
 
   it('05 - Deve atualizar usuário', async () => {
@@ -83,11 +84,11 @@ describe('Testes dos Módulos Usuário e Auth (e2e)', () => {
         nome: 'Root 2',
         usuario: 'root@root.com',
         senha: 'rootroot',
-        foto: ' '
+        foto: ' ',
       })
       .expect(200)
-      .then(resposta => {
-        expect("Root 2").toEqual(resposta.body.nome);
+      .then((resposta) => {
+        expect('Root 2').toEqual(resposta.body.nome);
       });
   });
 
@@ -96,6 +97,6 @@ describe('Testes dos Módulos Usuário e Auth (e2e)', () => {
       .get(`/usuarios/${usuarioId}`)
       .set('Authorization', `${token}`)
       .send({})
-      .expect(200)
+      .expect(200);
   });
 });

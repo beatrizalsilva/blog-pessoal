@@ -9,20 +9,21 @@ import { Usuario } from './usuario/entities/usuario.entity';
 import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
-    type: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: 'root',
-    database: 'db_blogpessoal',
-    entities: [Postagem, Tema, Usuario], //tabelas criada no db
-    synchronize: true,
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'db_blogpessoal',
+      entities: [Postagem, Tema, Usuario], //tabelas criada no db
+      synchronize: true,
     }),
     PostagemModule,
     TemaModule,
     AuthModule,
-    UsuarioModule
+    UsuarioModule,
   ],
   controllers: [],
   providers: [],
