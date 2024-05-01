@@ -34,7 +34,6 @@ export class UsuarioService {
             throw new HttpException('Usuario não encontrado!', HttpStatus.NOT_FOUND);
         }
         return usuario;
-
     }
 
     async create(usuario: Usuario): Promise<Usuario> {
@@ -66,5 +65,4 @@ export class UsuarioService {
         usuario.senha = await this.bcrypt.criptografarSenha(usuario.senha)
         return await this.usuarioRepository.save(usuario);
     }
-
 }
