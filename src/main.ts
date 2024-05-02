@@ -19,6 +19,6 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe()); //checará todas as requisições
   app.enableCors(); //permite receber requicisão http de outras origens
-  await app.listen(4000);
+  await app.listen(process.env.PORT || 4000);
 }
 bootstrap();
