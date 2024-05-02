@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, ILike, Repository } from 'typeorm';
@@ -8,8 +9,7 @@ import { TemaService } from '../../tema/services/tema.service';
 export class PostagemService {
   constructor(
     @InjectRepository(Postagem)
-    private //objeto responsável por implementar a injeção de dependências
-    postagemRepository: Repository<Postagem>,
+    private postagemRepository: Repository<Postagem>,
     private temaService: TemaService,
   ) {}
 
