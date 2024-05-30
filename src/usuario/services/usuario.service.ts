@@ -63,10 +63,6 @@ export class UsuarioService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    if (usuario.foto) {
-      usuario.foto =
-        'https://i.pinimg.com/originals/54/bf/7a/54bf7a45856c608fe7165a908d57c7cf.png';
-    }
     usuario.senha = await this.bcrypt.criptografarSenha(usuario.senha);
     return await this.usuarioRepository.save(usuario);
   }
