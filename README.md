@@ -33,15 +33,6 @@ npm run start:dev
 npm run start:prod
 ```
 
-4. Para testar a aplicação, utilize os seguintes comandos:
-```bash
-# teste unitário
-npm run test
-
-#teste ent-to-end (e2e)
-npm run test:e2e 
-```
-
-5. Para executar os testes do Insomnia:
+4. Para executar os testes do Insomnia:
 - [Baixe e instale o Insomia](https://insomnia.rest/download).
 - Importe o arquivo [BlogPessoal Teste](https://github.com/beatrizalsilva/blog-pessoal/blob/main/test/BlogPessoal%20Teste) para o Insomnia.
